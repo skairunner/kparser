@@ -1,21 +1,21 @@
-# K-Parser
+# kparserX
 
-A bidirectional converter between scml projects and klei animation files.
+A bidirectional converter between scml projects and Klei animation files.
 
 For the direction (klei animation files -> scml project) this tool must be used in tandem with a unity asset extractor. You will have to use the asset extractor to get the game files - specifically you are looking for the
 atlas file (a single png that contains image data for an animation) and the corresponding (they have the same name)
 `*.build` and `*.anim` file. Then this tool can convert that into an scml project.
 
-For the direction (scml project -> klei animation files) this tool must be used in tandem with an actual full unity
-install. Use version 2018 because that is the version that Oxygen not included runs on. This is because after this
-tool creates the klei animation files from your scml project you will need to use unity to create an asset bundle
-that contains the atlas file (`*.png` file), the build file (`*.build`) and the animation file (`*.anim`).
-
-The conversion from (klei animation files -> scml project) is a lossy conversion because klei animation format is more powerful than spriter (main limitation is skew transforms aren't part of spriter). But the conversion from (scml project -> klei animation file) is correct.
+The conversion from (Klei animation files -> scml project) is a lossy conversion because Klei animation format is more powerful than spriter (main limitation is skew transforms aren't part of spriter). But the conversion from (scml project -> klei animation file) is correct.
 
 Both directions have been tested and confirmed to work. A more clear tutorial on how to use this tool to create asset mods for Oxygen not included will be made.
 
-## Spriter Project Warning - IMPORTANT - MUST READ
+## What's different
+kparserX has a cleaner command line interface compared to its upstream project [kparser](https://github.com/daviscook477/kparser), and is a fork of the original project. It also has a less noisy output, so it's easier to tell when it's errored and when it's successful. 
+
+You can make kparserX completely silent on success by using the `--silent/-s` flag.
+
+## Limitations
 Because of limitations of the klei animation format you cannot convert all Spriter projects to klei animations. The requiremets for a Spriter project to be converted to a klei animation are listed here. If you do not **exactly** follow these requirements in your Spriter project it **will not** convert to a klei animation properly and you will be sad and I will be unable to help.
 * Name all of your image files with an underscore and a number at the end. For example if you have an image `blob.png` instead name it `blob_0.png`. The numbering for an individual sprite must start at 0. If you had two different versions of `blob` you would name them `blob_0.png` and `blob_1.png`. If you have separate sprites they each start at 0, for example `blob_0.png` and `head_0.png`. This is required for how the tool is currently written.
 * You absolutely **must** enable snapping for your project. The klei animation format expects your keyframes to be in a specific interval. So if you do not enforce that your Spriter project snaps all keyframes to this interval it will be unable to be converted. To turn on snapping you will need to click the triple dots in the timeline panel for opening the settings and then making sure that the `Enable Snapping` option is checked. Additionally you should make all your animations at 33 ms interval to fit within the game's animation style as that is the interval used by klei's own animations for Oxygen Not Included.
