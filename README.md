@@ -57,7 +57,7 @@ You must have Java 9 or higher to use kparser. The standard consumer Java instal
 ![Image of the binary files](imgs/tut_step_8b.png)
 10. All of the files for the "airconditioner" animation together looks like this.
 ![Image of the directory of the files together](imgs/tut_step_9.png)
-11. Now download the jar version of K-Parser from the releases section of this github repository. Click [here](https://github.com/daviscook477/kparser/releases) to download it. Put the jar somewhere useful. I recommend putting it near your folder containing the animation files.
+11. Now download the jar version of K-Parser from the releases section of this github repository. Click [here](https://github.com/skairunner/kparserX/releases) to download it. Put the jar somewhere useful. I recommend putting it near your folder containing the animation files.
 ![Image of the kparser jar](imgs/tut_step_10.png)
 12. Run the jar file with the animation files as the parameters to create the scml file. The order of the parameters does *not* matter, but make sure you have all three.
 ```
