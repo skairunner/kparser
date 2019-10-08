@@ -127,11 +127,11 @@ public class ScmlConverter {
 		File textureFolder = new File(baseTexturePath);
 		File[] children = textureFolder.listFiles();
 		BILDData.symbols = 0;
-		BILDData.frames = -1; // frames count starts from 0
+		BILDData.frames = 0; // frames count starts from 0
 		if (children == null) return;
 
 		for (File child : children) {
-			if (getFileExtension(child).equals("png")) {
+            if (getFileExtension(child).equals("png")) {
 				BILDData.frames++;
 				try {
 					String frameCount = getFileFrameCount(child);
@@ -139,7 +139,8 @@ public class ScmlConverter {
 						BILDData.symbols++;
 					}
 				} catch (IndexOutOfBoundsException | NumberFormatException e) {
-					if (child.getPath().equals(ignoredFile)) continue;
+					if (child.getPath().equals(ignoredFile))
+					    Utilities.PrintDebug(String.format("BILD> Found file named %s, ignoring.", child.getName()));
 					throw new RuntimeException("Improperly formatted texture name " + child.getName());
 				}
 			}
@@ -294,7 +295,7 @@ public class ScmlConverter {
 		Path imgPath = outputPath.resolve(name + ".png");
 		Path atlasPath = outputPath.resolve(name + ".atlas");
 		// read the produced atlas file to know what data must be included in the BILD file
-		BufferedReader reader = new BufferedReader(new FileReader(atlasPath.toString()));
+		BufferedReader reader = new BufferedReader(new FileReader(atlasPath.toFile()));
 
 		BILD BILDData = new BILD();
 		BILDData.version = BILD_VERSION;

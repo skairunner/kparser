@@ -8,7 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="18519775-3612-4264-a380-4b7bd2a37154" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ScmlConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ScmlConverter.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +65,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.To SCML">
+  <component name="RunManager" selected="Application.To KAnim">
     <configuration name="Help" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="kparse" />
@@ -76,8 +76,8 @@
     <configuration name="To KAnim" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="kparse" />
-      <option name="PROGRAM_PARAMETERS" value="--to-kanim spaceheater_0.scml" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../oni-sprites/spaceheater.scml" />
+      <option name="PROGRAM_PARAMETERS" value="--to-kanim uvcleaner_0.scml" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../oni-sprites/scml/uvcleaner" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
