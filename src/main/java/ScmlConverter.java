@@ -318,12 +318,12 @@ public class ScmlConverter {
 				BILDSymbol symbol = new BILDSymbol();
 				// The hash table contains all sprites that are the first of their kind
 				// e.g. if both pump_3 and pump_5 exist, it will contain pump_3.
-				try {
+				if (hashTable.containsKey(entry.name)) {
 					symbol.hash = hashTable.get(entry.name);
-				} catch (NullPointerException e) {
-					System.out.println(String.format("Found sprite \"%s\" that isn't being used, ignoring.", entry.name));
-					continue;
+				} else {
+					throw new RuntimeException(String.format("Found sprite \"%s\" that doesn't have a _0. You must number sprites starting from _0.", entry.name));
 				}
+
 				symbol.path = hashTable.get(entry.name);
 				symbol.color = 0; // no Klei files use color other than 0 so fair assumption is it can be 0
 				// only check in decompile for flag checks flag = 8 for a layered anim (which we won't do)
@@ -354,6 +354,10 @@ public class ScmlConverter {
 			// do not set frame.time since it was a calculated property and not actually used in kbild
 			frame.pivotWidth = entry.w * 2;
 			frame.pivotHeight = entry.h * 2;
+			var element = atlasMap.get(entry);
+			if (element == null) {
+				throw new RuntimeException(String.format("The sprite \"%s_%d\" was not found in the scml file. All sprites must be included in the scml file.", entry.name, entry.index));
+			}
 			frame.pivotX = -(Float.parseFloat(atlasMap.get(entry).getAttribute("pivot_x")) - 0.5f) * frame.pivotWidth;
 			frame.pivotY = (Float.parseFloat(atlasMap.get(entry).getAttribute("pivot_y")) - 0.5f) * frame.pivotHeight;
 			BILDData.symbolsList.get(symbolIndex).framesList.add(frame);
