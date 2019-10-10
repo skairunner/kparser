@@ -316,7 +316,14 @@ public class ScmlConverter {
 		for (AtlasEntry entry : orderedAtlasEntries) {
 			if (lastName == null || !entry.name.equals(lastName)) {
 				BILDSymbol symbol = new BILDSymbol();
-				symbol.hash = hashTable.get(entry.name);
+				// The hash table contains all sprites that are the first of their kind
+				// e.g. if both pump_3 and pump_5 exist, it will contain pump_3.
+				try {
+					symbol.hash = hashTable.get(entry.name);
+				} catch (NullPointerException e) {
+					System.out.println(String.format("Found sprite \"%s\" that isn't being used, ignoring.", entry.name));
+					continue;
+				}
 				symbol.path = hashTable.get(entry.name);
 				symbol.color = 0; // no Klei files use color other than 0 so fair assumption is it can be 0
 				// only check in decompile for flag checks flag = 8 for a layered anim (which we won't do)
