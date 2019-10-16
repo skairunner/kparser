@@ -65,7 +65,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Test">
+  <component name="RunManager" selected="Application.To KAnim">
     <configuration name="Help" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="kparse" />
@@ -85,8 +85,8 @@
     <configuration name="To KAnim" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="kparse" />
-      <option name="PROGRAM_PARAMETERS" value="--to-kanim uvcleaner_0.scml" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../oni-sprites/scml/uvcleaner" />
+      <option name="PROGRAM_PARAMETERS" value="--to-kanim liquidpiper.scml" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

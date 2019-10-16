@@ -136,7 +136,7 @@ public class ScmlConverter {
 				} catch (IndexOutOfBoundsException | NumberFormatException e) {
 					if (child.getPath().equals(ignoredFile))
 					    Utilities.PrintDebug(String.format("BILD> Found file named %s, ignoring.", child.getName()));
-					throw new RuntimeException("Improperly formatted texture name " + child.getName());
+					throw new RuntimeException(String.format("Improperly formatted texture name %s. Filenames should end in _[number], e.g. body_0.png.", child.getName()));
 				}
 			}
 		}
