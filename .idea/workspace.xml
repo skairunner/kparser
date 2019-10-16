@@ -76,8 +76,8 @@
     <configuration name="Test" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="kparse" />
-      <option name="PROGRAM_PARAMETERS" value="-k liquidpiper.scml" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="PROGRAM_PARAMETERS" value="-k _puft_0.scml" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ernyrepro" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

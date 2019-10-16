@@ -12,12 +12,7 @@ import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -155,6 +150,10 @@ public class ScmlConverter {
 		int originX, originY;
 		int offsetX, offsetY;
 		int index;
+
+		public String toString() {
+			return String.format("[AtlasEntry \"%s:%d\"]", name, index);
+		}
 	}
 
 	private String getOne(String line) {
@@ -217,13 +216,12 @@ public class ScmlConverter {
 		reader.readLine();
 		reader.readLine();
 		List<AtlasEntry> entries = new ArrayList<>();
-		boolean done = false;
-		while (!done) {
+		while (reader.ready()) {
 			try {
 				AtlasEntry entry = attemptParseEntry(reader);
 				entries.add(entry);
 			} catch (Exception e) {
-				done = true;
+				continue;
 			}
 		}
 		return entries;
@@ -232,7 +230,7 @@ public class ScmlConverter {
 	private Map<String, Integer> getHashTable(List<AtlasEntry> entries) {
 		Map<String, Integer> hashTable = new HashMap<>();
 		for (AtlasEntry entry : entries) {
-			if (entry.index == 0) {
+			if (!hashTable.containsKey(entry.name)) {
 				hashTable.put(entry.name, KleiHash(entry.name));
 			}
 		}
@@ -303,7 +301,7 @@ public class ScmlConverter {
 		BILDData.name = name;
 
 		List<AtlasEntry> orderedAtlasEntries = getOrderedAtlasEntries(reader);
-		Map<String, Integer> hashTable = getHashTable(orderedAtlasEntries);
+		Map<String, Integer> hashTable = new Hashtable<>();
 		Map<String, Integer> histogram = getHistogram(orderedAtlasEntries);
 		Map<AtlasEntry, Element> atlasMap = getAtlasMap(orderedAtlasEntries);
 
@@ -314,15 +312,15 @@ public class ScmlConverter {
 		int imgHeight = packedImg.getHeight();
 		String lastName = null;
 		for (AtlasEntry entry : orderedAtlasEntries) {
-			if (lastName == null || !entry.name.equals(lastName)) {
+			if (!entry.name.equals(lastName)) {
 				BILDSymbol symbol = new BILDSymbol();
-				// The hash table contains all sprites that are the first of their kind
-				// e.g. if both pump_3 and pump_5 exist, it will contain pump_3.
-				if (hashTable.containsKey(entry.name)) {
-					symbol.hash = hashTable.get(entry.name);
-				} else {
-					throw new RuntimeException(String.format("Found sprite \"%s\" that doesn't have a _0. You must number sprites starting from _0.", entry.name));
+				// The hash table caches a KleiHash translation of all sprites.
+				// It may be unnecessary but the original had it, and I don't know if the performance impact is
+				// small enough to remove it.
+				if (!hashTable.containsKey(entry.name)) {
+					hashTable.put(entry.name, KleiHash(entry.name));
 				}
+				symbol.hash = hashTable.get(entry.name);
 
 				symbol.path = hashTable.get(entry.name);
 				symbol.color = 0; // no Klei files use color other than 0 so fair assumption is it can be 0
