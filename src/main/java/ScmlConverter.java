@@ -515,7 +515,12 @@ public class ScmlConverter {
 				return key;
 			}
 		}
-		throw new RuntimeException("SCML parse exception - expected frame " + frame + " to exist in timeline " + timeline.getAttribute("id") + " but it did not");
+		throw new RuntimeException(
+			String.format(
+				"Error: While parsing SCML, expected frame %d to exist in timeline %s (of anim %s) but it did not.",
+					frame,
+					timeline.getAttribute("id"),
+					timeline.getParentNode().getAttributes().getNamedItem("name").getNodeValue()));
 	}
 
 	private String getImageName(String image) {
@@ -673,7 +678,12 @@ public class ScmlConverter {
 					// now need to get corresponding timeline object ref
 					Element timeline = timelineMap.get(timelineId);
 					int frameId = Integer.parseInt(objectRef.getAttribute("key"));
-					Element timelineFrame = getFrameFromTimeline(timeline, frameId);
+					Element timelineFrame;
+					try {
+						timelineFrame = getFrameFromTimeline(timeline, frameId);
+					} catch (Exception e) {
+						continue;
+					}
 					Element dataObject = firstMatching(timelineFrame, "object");
 					try {
 						Element image = fileMap.get(Integer.parseInt(dataObject.getAttribute("file")));

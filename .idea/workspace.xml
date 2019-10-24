@@ -65,7 +65,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.To KAnim">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="Help" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="kparse" />
@@ -142,5 +142,12 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="((DeferredElementImpl)timeline).attributes" custom="com.sun.org.apache.xerces.internal.dom.DeferredElementImpl" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
